@@ -23,3 +23,19 @@ print(df['churn'].value_counts())  # Вывод статистики для ст
 
 print(df["churn"].value_counts(
     normalize=True))  # Переведём значения bool в "статистику" в виде долей от общего числа записей
+
+print(df.sort_values(by="total day charge",
+                     ascending=False).head())  # Сортировка по одному параметру, False в обратном порядке
+
+print(df.sort_values(by=["churn", "state"],
+                     ascending=[False, True]).head())  # Сортировка по нескольким столбцам, в разглм порядке
+
+print(df["churn"].mean())  # Соотношение по данному признаку. Аналог value_counts
+
+print(df[df["churn"] == 0].mean())  # Средние значения среди тех, у кого значение churn принимает 0
+
+print(
+    df[df["churn"] == 1]["total day minutes"].mean())  # Среднее значение конкретного параметра у заданных пользователей
+
+'''''Объединение критериев отбора и обработка кнкретного параметра'''
+print(df[(df["churn"] == 0) & (df["international plan"] == "no")]["total intl minutes"].max())
