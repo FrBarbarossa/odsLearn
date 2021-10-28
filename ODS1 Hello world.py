@@ -66,10 +66,33 @@ print(df.groupby(["state"])[columns_to_show].describe())
 print(df.groupby(['state'])[columns_to_show].agg([np.max, np.min]))
 
 '''Построение таблицы для сравнения значений по двум столбцам (парамертрам)'''
-print(pd.crosstab(df["state"], df["churn"], normalize=True))
 
+print(pd.crosstab(df["state"], df["churn"], normalize=True))
 '''Составим сводную таблицу по заданным параметрам (ищем минимумы и максимумы), группируя по state'''
 print(df.pivot_table(
     ["total intl minutes", "total day charge", "total night minutes"],
     ["state"],
     aggfunc=["min", "max"]))
+
+# total_call = (
+#         df["total day calls"]
+#         + df["total eve calls"]
+#         + df["total night calls"]
+#         + df["total intl calls"]
+# )
+#
+# df.insert(loc=len(df.columns), column="total calls", value=total_call)
+# print(df.head())
+df["total call"] = (
+        df["total day calls"]
+        + df["total eve calls"]
+        + df["total night calls"]
+        + df["total intl calls"]
+)
+print(df.head())
+
+df.drop(["total call"], axis=1, inplace=True)
+print(df.head())
+
+df.drop([1, 2], inplace=True)
+print(df.head())
